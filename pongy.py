@@ -5,6 +5,19 @@ def drawCenterLine():
     global screenWidth, screenHeight
     pygame.draw.line(window, white, (screenWidth//2, 0), (screenWidth//2, screenHeight))
 
+def resetBall():
+    if ballLocation[0] >= 1000:
+        ballLocation[0] = 500
+        ballLocation[1] = 400
+    if ballLocation[0] <= 0:
+        ballLocation[0] = 500
+        ballLocation[1] = 400
+    if ballLocation[1] <= 0:
+        ballLocation[0] = 500
+        ballLocation[1] = 400
+    if ballLocation[1] >= 800:
+        ballLocation[0] = 500
+        ballLocation[1] = 400
 
 def drawScore(font):
     global scoreA, scoreB, ballLocation, ballSpeedx, ballSpeedy, scoreC, scoreD
@@ -16,37 +29,40 @@ def drawScore(font):
     text = font.render(str(scoreC), True, white)
     window.blit(text, (500,100))
     text = font.render(str(scoreD), True, white)
-    window.blit(text, (500,900))
-    if ballLocation[0] <= 0:l
+    window.blit(text, (500,750))
+    if ballLocation[0] <= 0:
         scoreB = scoreB + 1
     if ballLocation[0] >= 1000:
         scoreA = scoreA + 1
-    if ballLocation[1] >= 1000:
+    if ballLocation[1] >= 800:
         scoreC = scoreC + 1
     if ballLocation[1] <= 0:
         scoreD = scoreD + 1
-    
     if scoreA == 10:
             ballSpeedx = 0
             ballSpeedy = 0
+            ballLocation[1] = 350
             ballLocation[0] = 350
             text = fontB.render("Player1 wins", True, white)
-            window.blit(text, (200,100))
+            window.blit(text, (250,100))
     if scoreB == 10:
             ballSpeedx = 0
             ballSpeedy = 0
+            ballLocation[1] = 350
             ballLocation[0] = 350
             text = fontB.render("Player2 wins", True, white)
             window.blit(text, (250,100))
     if scoreC == 10:
             ballSpeedx = 0
             ballSpeedy = 0
+            ballLocation[1] = 350
             ballLocation[0] = 350
             text = fontB.render("Player3 wins", True, white)
             window.blit(text, (250,100))
     if scoreD == 10:
             ballSpeedx = 0
             ballSpeedy = 0
+            ballLocation[1] = 350
             ballLocation[0] = 350
             text = fontB.render("Player4 wins", True, white)
             window.blit(text, (250,100))       
@@ -59,7 +75,7 @@ def MoveBall():
         ballSpeedx = -ballSpeedx
     if ballLocation[1] >= screenHeight:
         ballSpeedy = -ballSpeedy
-    if ballLocation[0] < 0:
+    if ballLocation[0] <= 0:
         ballSpeedx = -ballSpeedx
     if ballLocation[1] <= 0:
         ballSpeedy = -ballSpeedy
@@ -82,10 +98,10 @@ def MovePaddle():
         PadD = PadC.move(2,0)
         PadDSpeed = 0 
     
-    if PadA.bottom >= 1000:
+    if PadA.bottom >= 800:
         PadA = PadA.move(0,-2)
         PadASpeed = 0
-    if PadB.bottom >= 1000:
+    if PadB.bottom >= 800:
         PadB = PadB.move(0,-2)
         PadBSpeed = 0
     if PadC.topright[0] >= 1000:
@@ -115,7 +131,7 @@ def MovePaddle():
 timer = pygame.time.Clock()
 
 screenWidth = 1000
-screenHeight = 1000
+screenHeight = 800
 
 window = pygame.display.set_mode([screenWidth, screenHeight])
 
@@ -139,7 +155,7 @@ fontB = pygame.font.Font(None,150)
 PadA = pygame.Rect((0,250), (20,100))
 PadB = pygame.Rect((980,250), (20,100))
 PadC = pygame.Rect((500,0), (100,20))
-PadD = pygame.Rect((500,100), (100,20))
+PadD = pygame.Rect((500,780), (100,20))
 PadASpeed = 0
 PadBSpeed = 0
 PadCSpeed = 0
